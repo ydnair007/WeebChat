@@ -5,9 +5,9 @@ import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useEffect, useRef, useState } from "react";
-import config from "./config";
+import dataStore from "./config";
 
-firebase.initializeApp(config);
+firebase.initializeApp(dataStore);
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
@@ -98,11 +98,11 @@ function ChatRoom() {
 function ChatMessage(props) {
   const { text, uid, photoURL, createdAt } = props.message;
   // console.log(createdAt.toDate(JSON.stringify(createdAt.toDate())));
-
+  var date;
   if (createdAt == null) {
     date = null;
   } else {
-    var date = createdAt.toDate();
+    date = createdAt.toDate();
     date =
       date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
   }
@@ -114,6 +114,7 @@ function ChatMessage(props) {
           photoURL ||
           "https://images.pexels.com/photos/4052752/pexels-photo-4052752.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         }
+        alt="Profile"
       />
       <p>
         {text}
